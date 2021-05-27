@@ -18,11 +18,10 @@ export default class Login extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:5000/users/login', this.state)
+        axios.post('http://localhost:3100/users/login', this.state)
         .then(response => {
             // Set auth token if the login was successful
             const { authtoken } = response.headers
-            console.log("auth", authtoken)
             if(authtoken){
                 localStorage.setItem('authToken', authtoken)
             }
@@ -31,6 +30,10 @@ export default class Login extends Component {
         this.setState({ email: "", password: ""})
     }
 
+    logout = () => {
+        const authToken = localStorage.authToken
+        if(authToken) localStorage.removeItem('authToken')
+    }
     render() {
         return (
             <div>
@@ -50,7 +53,9 @@ export default class Login extends Component {
                     placeholder="password"
                     />
                     <button>Login</button>
+                    
                 </form>
+                <button onClick={this.logout}>Logout</button>
                 <p>test</p>
             </div>
         )

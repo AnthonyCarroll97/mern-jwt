@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Login from './components/Login'
+import Register from './components/Register'
 export default class App extends Component {
 
   get = () => {
@@ -12,7 +13,7 @@ export default class App extends Component {
         }
       }
     }
-    axios.get('http://localhost:5000', options)
+    axios.get('http://localhost:3100', options)
     .then(data => {
       console.log(data)
     })
@@ -38,6 +39,7 @@ export default class App extends Component {
         <h1>app</h1>
         <button onClick={this.get}>get</button>
         <button onClick={this.login}>post</button>
+        <Register></Register>
         <Login></Login>
       </div>
     )
