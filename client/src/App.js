@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './index.css';
 import axios from 'axios'
 import Login from './components/Login'
 import Register from './components/Register'
