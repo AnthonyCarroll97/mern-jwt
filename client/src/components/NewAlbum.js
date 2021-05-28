@@ -1,6 +1,5 @@
-import axios from 'axios'
 import React, { Component } from 'react'
-import loadToken from '../utils/loadToken'
+
 
 export default class NewAlbum extends Component {
     constructor(props){
@@ -19,10 +18,9 @@ export default class NewAlbum extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault()
-        const { title, artist, genre } = this.state
-        axios.post('http://localhost:3100/albums', {title, artist, genre}, loadToken())
-        .then(response => console.log(response))
-        .catch(error => console.log(error.response.data))
+        this.props.createAlbum(this.state)
+        // Clear form
+        this.setState({title: "", artists: "", genre: ""})
     }
     render() {
         return (

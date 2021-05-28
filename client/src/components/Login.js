@@ -29,7 +29,7 @@ export default class Login extends Component {
                 this.setState({ email: "", password: "", message: "Logged in Successfully" })
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
         // Reset input fields
         this.setState({ email: "", password: ""})
     }

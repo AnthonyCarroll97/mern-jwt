@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Login from './components/Login'
 import Register from './components/Register'
-import NewAlbum from './components/NewAlbum'
 import Albums from './components/Albums'
 import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom'
 
@@ -26,14 +25,13 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Login></Login>
         <BrowserRouter>
           <Switch>
             <Route path="/albums" exact component={Albums}/>
+            <Route path="/register" exact component={Register}/>
           </Switch>
         </BrowserRouter>
-        <Register></Register>
-        <Login></Login>
-        <NewAlbum></NewAlbum>
       </div>
     )
   }
