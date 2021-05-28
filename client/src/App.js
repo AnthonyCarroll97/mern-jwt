@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Login from './components/Login'
 import Register from './components/Register'
+import NewAlbum from './components/NewAlbum'
+import Albums from './components/Albums'
+import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom'
+
 export default class App extends Component {
 
   get = () => {
@@ -13,34 +17,23 @@ export default class App extends Component {
         }
       }
     }
-    axios.get('http://localhost:3100', options)
+    axios.get('http://localhost:3100/albums', options)
     .then(data => {
       console.log(data)
     })
   }  
 
-  login = () => {
-    axios.post('http://localhost:5000/users/login',{
-      username: "anthony",
-      email: "anthony@fake.com"
-    })
-    .then(response => {
-      console.log(response)
-      if(response.headers.authtoken != null){
-        localStorage.setItem('authtoken', response.headers.authtoken)
-      }
-     
-    })
-    .catch(err => console.log(err))
-  }
   render() {
     return (
       <div>
-        <h1>app</h1>
-        <button onClick={this.get}>get</button>
-        <button onClick={this.login}>post</button>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/albums" exact component={Albums}/>
+          </Switch>
+        </BrowserRouter>
         <Register></Register>
         <Login></Login>
+        <NewAlbum></NewAlbum>
       </div>
     )
   }
