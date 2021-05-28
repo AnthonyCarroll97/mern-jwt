@@ -8,14 +8,27 @@ export default class Register extends Component {
             username: "",
             email: "",
             password: "",
-            password2: ""
+            password2: "",
+            message: ""
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3100/users/register', this.state)
-        .then(response => console.log(response))
+        const { username, email, password, password2 } = this.state
+        axios.post('http://localhost:3100/users/register', {username, email,password, password2})
+        .then(response => {
+            if(response.status === 201) {
+                this.setState({ 
+                    message: "Account created successfully",
+                    email: "",
+                    password: "",
+                    password2: "",
+                    username: ""
+                })     
+            }
+
+        })
         .catch(err => console.log(err.error))
     }
 
@@ -25,6 +38,7 @@ export default class Register extends Component {
     render() {
         return (
             <div>
+                <h4>{this.state.message}</h4>
                 <h1>Register</h1>
                 <form onSubmit={this.handleSubmit}>
                 <input

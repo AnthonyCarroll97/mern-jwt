@@ -44,10 +44,10 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
         // Allow header to get past cors
         res.set('Access-Control-Expose-Headers', 'authToken')
-        res.header('authToken', token).send()
+        res.status(200).header('authToken', token).send()
     } else{
 
-        res.json({ error: "passwords do not match" })
+        res.status(400).json({ error: "passwords do not match" })
     }
 
     
@@ -55,6 +55,6 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    res.json({blah: "users"})
+    res.json({ blah: "users" })
 })
 module.exports = router

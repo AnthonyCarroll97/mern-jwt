@@ -6,7 +6,8 @@ export default class Login extends Component {
         super(props)
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            message: ""
         }
     }
 
@@ -18,25 +19,30 @@ export default class Login extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3100/users/login', this.state)
+        const { email, password } = this.state
+        axios.post('http://localhost:3100/users/login', { email, password })
         .then(response => {
             // Set auth token if the login was successful
             const { authtoken } = response.headers
-            if(authtoken){
+            if(response.status === 200 && authtoken){
                 localStorage.setItem('authToken', authtoken)
+                this.setState({ email: "", password: "", message: "Logged in Successfully" })
             }
         })
         .catch(err => console.log(err))
+        // Reset input fields
         this.setState({ email: "", password: ""})
     }
 
     logout = () => {
+        // Remove auth token from local storage
         const authToken = localStorage.authToken
         if(authToken) localStorage.removeItem('authToken')
     }
     render() {
         return (
             <div>
+                <h3>{this.state.message}</h3>
                 <h3>Login</h3>
                 <form onSubmit={this.handleSubmit}>
                     <input 
