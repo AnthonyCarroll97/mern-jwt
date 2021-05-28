@@ -11,10 +11,8 @@ const validateUser = async (req, res, next) => {
         try{
             // Throws an error if the passwords do not match
             const id = jwt.verify(authToken, process.env.JWT_SECRET)._id
-            const user = await User.find({ _id: id })
-            req.user = user
-            res.locals.user = user
-            res.username = user.username
+            const user = await User.findOne({ _id: id })
+            res.user = user
         } catch(err){}
         
     }
